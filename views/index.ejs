@@ -53,7 +53,7 @@
         <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
         <script language="javascript">
-            var socket = io.connect('http://localhost:8080');
+            var socket = io.connect('http://'+window.location.host);
             var uuid = "";
             socket.on('session_id', function (data) {
                 uuid = data.uuid;
