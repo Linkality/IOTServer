@@ -51,6 +51,16 @@
                 border-top-left-radius: 0;
                 border-top-right-radius: 0;
             }
+            .loader{
+                width:100px;
+                height:100px;
+                position:absolute;
+                left:50%;
+                top:50%;
+                display:none;
+                margin-left:-50px;
+                margin-top:-50px;
+            }
         </style>
     </head>
     <body>
@@ -86,10 +96,11 @@
             </div>
             <div class="row">
                 <div class="col-md-12 content">
-                    <input type="button" onclick="socket.emit('status');" value="status"> <input type="button" onclick="socket.emit('login_box');" value="login box">
+                    <input type="button" onclick="socket.emit('status');" value="status"> <input type="button" onclick="socket.emit('login_box');showLoader();" value="login box">
                 </div>
             </div>
         </div>
+        <img src="images/ring-alt.svg" class="loader">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
@@ -104,8 +115,22 @@
             });
             socket.on('page_load', function (data) {
                 $(data.wrapper)[data.cover](data.html);
+                hideLoader();
             });
-            socket.emit('login_exec',{user:"test",pass:'me'});
+            socket.on('login_status', function (data) {
+                if(data.code==1){
+                    socket.emit('index');
+                }else{
+                    hideLoader();
+                }
+            });
+
+            function showLoader(){
+                $('.loader').show();
+            }
+            function hideLoader(){
+                $('.loader').hide();
+            }
         </script>
     </body>
 </html>
