@@ -118,9 +118,12 @@
                 }
                 return text;
             }
-            alert(makeid());
+            var callbacks = {
+                func:[]
+            };
             function gre(event, data, func){
-
+                var refId = makeid();
+                func[refId]
             }
             socket.on('session_id', function (data) {
                 uuid = data.uuid;
