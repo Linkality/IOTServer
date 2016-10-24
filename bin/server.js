@@ -26,6 +26,9 @@ MongoClient.connect(url, function(err, db) {
     mdb = db;
 });
 var init = new Loader();
+
+init.addSetting("title", "Linkality");
+
 io.on('connection', function (socket) {
     init.generateSession(socket);
     init.exec(socket, mdb);
