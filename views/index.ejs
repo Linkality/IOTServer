@@ -51,6 +51,11 @@
                 border-top-left-radius: 0;
                 border-top-right-radius: 0;
             }
+            .form-middle{
+                margin-bottom: 0px;
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+            }
             .loader{
                 width:100px;
                 height:100px;
@@ -96,7 +101,7 @@
             </div>
             <div class="row">
                 <div class="col-md-12 content">
-                    <input type="button" onclick="socket.emit('status');" value="status"> <input type="button" onclick="socket.emit('login_box');showLoader();" value="login box">
+                    <input type="button" onclick="socket.emit('status');" value="status"> <input type="button" onclick="socket.emit('login_box');showLoader();" value="login box"> <input type="button" onclick="socket.emit('register_box');showLoader();" value="register box">
                 </div>
             </div>
         </div>
@@ -123,7 +128,7 @@
             };
             function gre(event, data, func){
                 var refId = makeid();
-                func[refId]
+                func[refId];
             }
             socket.on('session_id', function (data) {
                 uuid = data.uuid;
