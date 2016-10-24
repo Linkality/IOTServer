@@ -107,6 +107,21 @@
         <script language="javascript">
             var socket = io.connect('http://'+window.location.host);
             var uuid = "";
+            /*http://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript -- Modified By Nathaniel */
+            function makeid(){
+                var text = "";
+                var possible = 'aA0';
+                for( var i=0; i <10; i++ ) {
+                    var rand = Math.random();
+                    var chars = Math.floor(rand*3);
+                    text += String.fromCharCode(possible.charCodeAt(chars) + Math.floor(rand* ((chars==2)?10:26)));
+                }
+                return text;
+            }
+            alert(makeid());
+            function gre(event, data, func){
+
+            }
             socket.on('session_id', function (data) {
                 uuid = data.uuid;
             });
