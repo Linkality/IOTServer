@@ -66,6 +66,9 @@
                 margin-left:-50px;
                 margin-top:-50px;
             }
+            .link{
+                cursor: pointer;
+            }
         </style>
     </head>
     <body>
@@ -88,12 +91,16 @@
                         <!-- Collect the nav links, forms, and other content for toggling -->
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <p class="navbar-text" id="loggedinText"></p>
-                            <ul class="nav navbar-nav">
-                                <li><a href="">Add Beacon</a></li>
-                                <li><a href="#">Add RFID Reader</a></li>
+                            <ul class="nav navbar-nav loggedIn-show" style="display: none;">
+                                <li><a class="link">Add Beacon</a></li>
+                                <li><a class="link">Add RFID Reader</a></li>
                             </ul>
-                            <ul class="nav navbar-nav navbar-right">
-                                <li><a href="#">Logout</a></li>
+                            <ul class="nav navbar-nav navbar-right loggedIn-hide">
+                                <li><a class="link" onclick="socket.emit('login_box');showLoader();">Login</a></li>
+                                <li><a class="link" onclick="socket.emit('register_box');showLoader();">Register</a></li>
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right loggedIn-show" style="display: none;">
+                                <li><a class="link" onclick="socket.emit('logout_exec');showLoader();">Logout</a></li>
                             </ul>
                         </div><!-- /.navbar-collapse -->
                     </div><!-- /.container-fluid -->
@@ -101,7 +108,7 @@
             </div>
             <div class="row">
                 <div class="col-md-12 content">
-                    <input type="button" onclick="socket.emit('status');" value="status"> <input type="button" onclick="socket.emit('login_box');showLoader();" value="login box"> <input type="button" onclick="socket.emit('register_box');showLoader();" value="register box">
+                    <input type="button" onclick="socket.emit('status');" value="status">
                 </div>
             </div>
         </div>
@@ -128,10 +135,14 @@
             };
             function gre(event, data, func){
                 var refId = makeid();
-                func[refId];
+                callbacks.func[refId] = func;
+                socket.emit(event, data);
             }
             socket.on('session_id', function (data) {
                 uuid = data.uuid;
+            });
+            socket.on('response', function (data) {
+                callbacks.func[data.ref](data);
             });
             socket.on('connect', function (data) {
                 socket.emit('status');
@@ -147,7 +158,9 @@
                     hideLoader();
                 }
             });
+            function login(){
 
+            }
             function showLoader(){
                 $('.loader').show();
             }
