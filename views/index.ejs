@@ -85,7 +85,7 @@
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                             </button>
-                            <a class="navbar-brand" href="/"><%= title %></a>
+                            <a class="navbar-brand link" onclick="socket.emit('status_page');showLoader();"><%= title %></a>
                         </div>
 
                         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -100,16 +100,14 @@
                                 <li><a class="link" onclick="socket.emit('register_box');showLoader();">Register</a></li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right loggedIn-show" style="display: none;">
-                                <li><a class="link" onclick="socket.emit('logout_exec');showLoader();">Logout</a></li>
+                                <li><a class="link" onclick="logout();">Logout</a></li>
                             </ul>
                         </div><!-- /.navbar-collapse -->
                     </div><!-- /.container-fluid -->
                 </nav>
             </div>
             <div class="row">
-                <div class="col-md-12 content">
-                    <input type="button" onclick="socket.emit('status');" value="status">
-                </div>
+                <div class="col-md-12 content"></div>
             </div>
         </div>
         <img src="images/ring-alt.svg" class="loader">
@@ -119,54 +117,22 @@
         <script language="javascript">
             var socket = io.connect('http://'+window.location.host);
             var uuid = "";
-            /*http://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript -- Modified By Nathaniel */
-            function makeid(){
-                var text = "";
-                var possible = 'aA0';
-                for( var i=0; i <10; i++ ) {
-                    var rand = Math.random();
-                    var chars = Math.floor(rand*3);
-                    text += String.fromCharCode(possible.charCodeAt(chars) + Math.floor(rand* ((chars==2)?10:26)));
-                }
-                return text;
-            }
-            var callbacks = {
-                func:[]
-            };
-            function gre(event, data, func){
-                var refId = makeid();
-                callbacks.func[refId] = func;
-                socket.emit(event, data);
-            }
             socket.on('session_id', function (data) {
                 uuid = data.uuid;
             });
             socket.on('response', function (data) {
                 callbacks.func[data.ref](data);
+                delete callbacks.func[data.ref];
             });
             socket.on('connect', function (data) {
-                socket.emit('status');
+                socket.emit('status_page');
             });
             socket.on('page_load', function (data) {
                 $(data.wrapper)[data.cover](data.html);
                 hideLoader();
             });
-            socket.on('login_status', function (data) {
-                if(data.code==1){
-                    socket.emit('index');
-                }else{
-                    hideLoader();
-                }
-            });
-            function login(){
-
-            }
-            function showLoader(){
-                $('.loader').show();
-            }
-            function hideLoader(){
-                $('.loader').hide();
-            }
         </script>
+        <script src="/javascripts/client.js"></script>
+        <script src="/javascripts/usermanagement.js"></script>
     </body>
 </html>
