@@ -85,15 +85,15 @@
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                             </button>
-                            <a class="navbar-brand link" onclick="socket.emit('status_page');showLoader();"><%= title %></a>
+                            <a class="navbar-brand link" onclick="socket.emit('index');showLoader();"><%= title %></a>
                         </div>
 
                         <!-- Collect the nav links, forms, and other content for toggling -->
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <p class="navbar-text" id="loggedinText"></p>
                             <ul class="nav navbar-nav loggedIn-show" style="display: none;">
-                                <li><a class="link">Add Beacon</a></li>
-                                <li><a class="link">Add RFID Reader</a></li>
+                                <li><a class="link" onclick="newBeacon();">Add Beacon</a></li>
+                                <li><a class="link" onclick="newRFID();">Add RFID Reader</a></li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right loggedIn-hide">
                                 <li><a class="link" onclick="socket.emit('login_box');showLoader();">Login</a></li>
@@ -127,10 +127,32 @@
             socket.on('connect', function (data) {
                 socket.emit('status_page');
             });
+            socket.on('redirect', function (data) {
+                socket.emit(data.to);
+            });
             socket.on('page_load', function (data) {
                 $(data.wrapper)[data.cover](data.html);
                 hideLoader();
             });
+            function newBeacon(){
+                capturePoints.call=function(coords){
+                    socket.emit('new_beacon_page',{
+                        lat: coords.lat(),
+                        lng: coords.lng()
+                    });
+                };
+            }
+            function newRFID(){
+                capturePoints.call=function(coords){
+                    socket.emit('new_rfid_page',{
+                        lat: coords.lat(),
+                        lng: coords.lng()
+                    });
+                };
+            }
+            var capturePoints={
+                call:function(c){}
+            };
         </script>
         <script src="/javascripts/client.js"></script>
         <script src="/javascripts/usermanagement.js"></script>

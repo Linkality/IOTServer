@@ -1,0 +1,17 @@
+<div id="map" style="height:600px;"></div>
+<script>
+    function initMap() {
+        var originalMapCenter = new google.maps.LatLng(36.6524044,-121.797227);
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 20,
+            center: originalMapCenter
+        });
+        map.addListener('click', function(e){
+            capturePoints.call(e.latLng);
+            capturePoints.call=function(){};
+        });
+    }
+</script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbCTWm1k9ZCTvkWFxMa5dQ1-oSGqXie9E&callback=initMap">
+</script>
