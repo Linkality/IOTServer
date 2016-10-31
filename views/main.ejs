@@ -7,8 +7,10 @@
             center: originalMapCenter
         });
         map.addListener('click', function(e){
-            capturePoints.call(e.latLng);
-            capturePoints.call=function(){};
+            if(capturePoints.call) {
+                capturePoints.call(e.latLng);
+                capturePoints.call = null;
+            }
         });
     }
 </script>
