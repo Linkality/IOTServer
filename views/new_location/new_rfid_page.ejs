@@ -1,6 +1,42 @@
 <div class="col-md-4 col-md-offset-4">
-    <form class="form-signin" action="javascript:newRFIDExec();" style="background:#fff;padding:15px;padding-top:5px;border-radius: 7px;">
+    <form class="form-signin panel panel-default" action="javascript:newLocationExec('rfid');showLoader();" style="background:#fff;padding:15px;padding-top:5px;border-radius: 7px;">
         <h2 class="form-signin-heading">Create New RFID Reader</h2>
-        <%=lat%>, <%=lng%>
+        <br/>
+        <div class="row">
+            <div class="col-md-4" style="text-align:right;"><label for="inputLabel" style="padding-top:12px;">Label</label></div>
+            <div class="col-md-8"><input type="text" value="" class="form-control inputLabel" id="inputLabel"/></div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-md-4" style="text-align:right;"><label for="inputName" style="padding-top:12px;">Name</label></div>
+            <div class="col-md-8"><input type="text" value="" class="form-control inputName" id="inputName"/></div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-md-4" style="text-align:right;"><label for="inputReference" style="padding-top:12px;">Reference #</label></div>
+            <div class="col-md-8"><textarea type="text" value="" class="form-control inputReference" id="inputReference"></textarea></div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-md-4" style="text-align:right;"><label for="inputLat" style="padding-top:12px;">Latitude</label></div>
+            <div class="col-md-8"><input type="text" value="<%=lat%>" class="form-control inputLat" id="inputLat" disabled="disabled"/></div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-md-4" style="text-align:right;"><label for="inputLng" style="padding-top:12px;">Longitude</label></div>
+            <div class="col-md-8"><input type="text" value="<%=lng%>" class="form-control inputLng" id="inputLng" disabled="disabled"/></div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-md-6">
+                <button class="btn btn-lg btn-block" onclick="socket.emit('index');showLoader();">Back</button>
+            </div>
+            <div class="col-md-6">
+                 <button class="btn btn-lg btn-primary btn-block" type="submit">Create RFID Reader</button>
+            </div>
+        </div>
     </form>
 </div>
+<script language="javascript">
+    $(".inputLabel").focus();
+</script>

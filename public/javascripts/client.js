@@ -26,3 +26,10 @@ function showLoader(){
 function hideLoader(){
     $('.loader').hide();
 }
+function keyValue(data){
+    var obj = {};
+    $.each(data, function(k,v){
+        obj[k]=$(v).val();
+    });
+    return obj;
+}

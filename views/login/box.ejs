@@ -1,15 +1,25 @@
 <div class="col-md-4 col-md-offset-4">
-    <form class="form-signin" action="javascript:login($('.inputEmail').val(),$('.inputPassword').val());" style="background:#fff;padding:15px;padding-top:5px;border-radius: 7px;">
+    <form class="form-signin panel panel-default" action="javascript:login($('.inputEmail').val(),$('.inputPassword').val());" style="background:#fff;padding:15px;padding-top:5px;border-radius: 7px;">
         <h2 class="form-signin-heading">Login to <%=settings.title%></h2>
-        <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" class="form-control inputEmail" placeholder="Email address" required autofocus>
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" class="form-control inputPassword" placeholder="Password" required>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" value="remember-me"> Remember me
-            </label>
+        <br/>
+        <div class="row">
+            <div class="col-md-4" style="text-align:right;"><label for="inputEmail" style="padding-top:15px;">Email</label></div>
+            <div class="col-md-8"><input type="email" id="inputEmail" class="form-control inputEmail" placeholder="Email" required></div>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <br/>
+        <div class="row">
+            <div class="col-md-4" style="text-align:right;"><label for="inputPassword" style="padding-top:15px;">Password</label></div>
+            <div class="col-md-8"><input type="password" id="inputPassword" class="form-control inputPassword" placeholder="Password" required></div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-md-6"></div>
+            <div class="col-md-6">
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+            </div>
+        </div>
     </form>
 </div>
+<script language="javascript">
+    $(".inputEmail").focus();
+</script>
