@@ -1,5 +1,6 @@
 <div id="map" style="height:600px;"></div>
 <script>
+    var marker = new Array();
     function initMap() {
         var originalMapCenter = new google.maps.LatLng(36.6524044,-121.797227);
         var map = new google.maps.Map(document.getElementById('map'), {
@@ -12,8 +13,32 @@
                 capturePoints.call = null;
             }
         });
+        var iconBase = '/images/markers/';
+        var icons = {
+            rfid: {
+                icon: iconBase + 'rfid.png'
+            },
+            beacon: {
+                icon: iconBase + 'beacon.png'
+            }
+        };
+        var tmp;
+        <% locations.forEach(function(location){ %>
+            tmp = new google.maps.Marker({
+                map: map,
+                draggable: true,
+                icon: icons.<%=location.type%>.icon,
+                animation: google.maps.Animation.DROP,
+                position: {lat: <%=location.lat%>, lng: <%=location.lng%>}
+            });
+            tmp.addListener('click', function(){
+                alert('<%=location.label%> : <%=location.name%>');
+            });
+            tmp.addListener('dragend', function(e){
+                socket.emit("save_location_coords",{lat:e.latLng.lat(), lng:e.latLng.lng(), name:'<%=location.name%>'});
+            });
+            marker.push(tmp);
+        <% }); %>
     }
 </script>
-<script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbCTWm1k9ZCTvkWFxMa5dQ1-oSGqXie9E&callback=initMap">
-</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbCTWm1k9ZCTvkWFxMa5dQ1-oSGqXie9E&callback=initMap"></script>
