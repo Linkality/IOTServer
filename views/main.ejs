@@ -32,7 +32,7 @@
                 position: {lat: <%=location.lat%>, lng: <%=location.lng%>}
             });
             tmp.addListener('click', function(){
-                alert('<%=location.label%> : <%=location.name%>');
+                openLocation('<%=location.name%>');
             });
             tmp.addListener('dragend', function(e){
                 socket.emit("save_location_coords",{lat:e.latLng.lat(), lng:e.latLng.lng(), name:'<%=location.name%>'});
