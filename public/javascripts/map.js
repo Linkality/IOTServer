@@ -62,14 +62,18 @@ function openLocation(name){
 }
 function deleteLocation(name){
     var values = keyValue({name_key:".inputNameKey"});
-    call('delete_location', values, function(data){
-        if(data.code=="1"){
-            socket.emit('index');
-            showLoader();
-        }else{
-            $('.edit-box').effect('shake');
-        }
-    });
+    if(confirm('Are you sure you want to delete this location?')){
+        call('delete_location', values, function(data){
+            if(data.code=="1"){
+                socket.emit('index');
+                showLoader();
+            }else{
+                $('.edit-box').effect('shake');
+            }
+        });
+    }else{
+        $('.edit-box').effect('shake');
+    }
 }
 function saveLocation(){
     var values = keyValue({label:".inputLabel", name:".inputName", reference:".inputReference", lat:".inputLat", lng:".inputLng", name_key:".inputNameKey"});
@@ -83,5 +87,5 @@ function saveLocation(){
     });
 }
 function openLocationEvents(){
-    
+
 }

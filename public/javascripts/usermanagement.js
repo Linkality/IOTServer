@@ -29,6 +29,8 @@ function login(user, pass){
                 socket.emit('index');
                 $(".loggedIn-show").show();
                 $(".loggedIn-hide").hide();
+            }else{
+                $(".loginBox").effect('shake');
             }
         }
     );
@@ -50,6 +52,8 @@ function register(user, pass, passv){
                 socket.emit('index');
                 $(".loggedIn-show").show();
                 $(".loggedIn-hide").hide();
+            }else{
+                $(".registerBox").effect('shake');
             }
         }
     );

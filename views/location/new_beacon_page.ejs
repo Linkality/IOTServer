@@ -1,5 +1,5 @@
 <div class="col-md-4 col-md-offset-4">
-    <form class="form-signin panel panel-default" action="javascript:newLocationExec('beacon');showLoader();" style="background:#fff;padding:15px;padding-top:5px;border-radius: 7px;">
+    <form class="form-signin panel panel-default" action="javascript:;" style="background:#fff;padding:15px;padding-top:5px;border-radius: 7px;">
         <h2 class="form-signin-heading">Create New Beacon</h2>
         <br/>
         <div class="row">
@@ -32,7 +32,7 @@
                 <button class="btn btn-lg btn-block" onclick="socket.emit('index');showLoader();">Back</button>
             </div>
             <div class="col-md-6">
-                 <button class="btn btn-lg btn-primary btn-block" type="submit">Create Beacon</button>
+                 <button class="btn btn-lg btn-primary btn-block" onclick="newLocationExec('beacon');showLoader();">Create Beacon</button>
             </div>
         </div>
     </form>
