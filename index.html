@@ -86,7 +86,7 @@
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                             </button>
-                            <a class="navbar-brand link" onclick="socket.emit('index');showLoader();"><%= title %></a>
+                            <a class="navbar-brand link" onclick="socket.emit('index');showLoader();">Linkality</a>
                         </div>
 
                         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -107,7 +107,6 @@
                                     <ul class="dropdown-menu">
                                         <li><a href="javascript:;" onclick="socket.emit('wipe', {locations:1});">Wipe Locations</a></li>
                                         <li><a href="javascript:;" onclick="socket.emit('wipe', {users:1});">Wipe Users</a></li>
-                                        <li><a href="javascript:;" onclick="socket.emit('wipe', {persons:1});">Wipe Persons</a></li>
                                     </ul>
                                 </li>
                             </ul>
