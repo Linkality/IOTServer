@@ -12,6 +12,7 @@
     "mongodb": "~2.2",
     "debug": "~2.2.0",
     "uuid": ">2.0.3",
+    "config": ">0.1",
     "util":">0.1",
     "unit.js": ">0.1",
     "websocket":">0.1",

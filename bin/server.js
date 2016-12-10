@@ -12,7 +12,6 @@ var MongoClient = require('mongodb').MongoClient;
 var server = http.createServer(app);
 var io = require('socket.io')(server);
 var Loader = require('../lib/loader.js');
-
 if(process.env.mdb_user==null){
     process.env.mdb_user="iotconn";
     process.env.mdb_pass="iotconn";
@@ -24,6 +23,8 @@ var eventRegistration = {
 
     }
 };
+
+
 var url = 'mongodb://'+process.env.mdb_user+':'+process.env.mdb_pass+'@'+process.env.mdb_host+'/'+process.env.mdb_db;
 var mdb;
 MongoClient.connect(url, function(err, db) {
@@ -56,20 +57,19 @@ var History = require("../lib/models/History.js");
 var history = new History();
 var Location = require("../lib/models/Location.js");
 var location = new Location();
-client.on('connect', function(connection) {
-    _connection = connection
 
-    var url = util.format('http://%s:%s/api/track','localhost', server.address().port);
+client.on('connect', function(connection) {
     connection.on('error', function(error) {
         console.log("Connection Error: " + error.toString());
     });
     connection.on('message', function(message) {
+        console.log(message);
         if (message.type === 'utf8') {
             var data = message.utf8Data;
             var json = JSON.parse(data);
             var antenna = json.body.match(/From (.*?) -/i)[1];
             var tagId = json.body.match(/epcString: (.*?) -/i)[1];
-            location.getByName(mdb, antenna, function(loc){
+            location.getByReference(mdb, antenna, function(loc){
                 if(loc) {
                     console.log(loc);
                     history.new(mdb, loc['_id'], tagId, function (d) {
