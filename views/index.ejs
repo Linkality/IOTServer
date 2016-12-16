@@ -95,6 +95,7 @@
                             <ul class="nav navbar-nav loggedIn-show" style="display: none;">
                                 <li><a class="link" onclick="newBeacon();">Add Beacon</a></li>
                                 <li><a class="link" onclick="newRFID();">Add RFID Reader</a></li>
+                                <li><a class="link" onclick="addTags();">Add Tags</a></li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right loggedIn-hide">
                                 <li><a class="link" onclick="socket.emit('login_box');showLoader();">Login</a></li>
@@ -150,6 +151,15 @@
             socket.on('page_load', function (data) {
                 $(data.wrapper)[data.cover](data.html);
                 hideLoader();
+            });
+            socket.on('foundSimpleTag', function (data) {
+                alert('read '+data.combinedName);
+            });
+            socket.on('foundNonSimpleTag', function (data) {
+                if($("#inputReference").length>0){
+                    readTag();
+                    $("#inputReference").val(data.tagId);
+                }
             });
         </script>
         <script src="/javascripts/client.js"></script>
